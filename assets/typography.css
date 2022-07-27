@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans&display=swap');
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  padding-left: 25px;
+}
+
+h1 {
+  font-family: 'Lora', serif;
+  margin-bottom: 12px;
+}
+
+div {
+  margin-bottom: 25px;
+}

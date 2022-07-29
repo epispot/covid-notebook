@@ -3,6 +3,8 @@
 # visit http://127.0.0.1:8050/ in your web browser.
 
 # imports
+import core
+
 import json
 from csv import reader
 from datetime import date
@@ -20,44 +22,9 @@ from dash import Dash, html, dcc
 app = Dash(__name__)
 
 
-# fetch data
-with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json') as response:
-    counties = json.load(response)
-
-df_raw = pd.read_csv(
-    'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties-recent.csv',
-    dtype={ 'fips': str }
-)
-update = date.today() - date.resolution
-df = df_raw[df_raw['date'] == update.strftime('%Y-%m-%d')]
-
-
-# process data
-p_cases = []
-p_deaths = []
-
-with open('data/populations.csv', 'r') as f:
-
-    read = reader(f)
-    header = next(read)
-    index = -1
-
-    for row in read:
-
-        index += 1
-        pop = int(row[1])
-
-        if pop == 0:
-            p_cases.append(None)
-            p_deaths.append(None)
-            continue
-
-        df_row = df.iloc[index]
-        p_cases.append(df_row['cases'] / pop)
-        p_deaths.append(df_row['deaths'] / pop)
-
-df.insert(6, 'p_cases', p_cases)
-df.insert(7, 'p_deaths', p_deaths)
+# get data
+df = core.find.data()
+counties = core.get.counties()
 
 
 # create main figure

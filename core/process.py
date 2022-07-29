@@ -23,11 +23,7 @@ def remaining(df):
     # Joplin, Missouri
     df.loc[df['county'] == 'Joplin', 'fips'] = 'unique:jop'
 
-    # Bristol Bay & Lake and Peninsula, Alaska
-    df.loc[
-        df['county'] == 'Bristol Bay plus Lake and Peninsula',
-        'fips'
-    ] = 'unique:bblp'
+    # 48999: 'Pending County Assignment'
 
     return df
     

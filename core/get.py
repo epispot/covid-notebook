@@ -21,19 +21,20 @@ def data(date):
     df_raw = pd.read_csv(URL, dtype={'fips': str})
     df = df_raw[df_raw['date'] == date].copy()
     df.drop(columns=['date'], inplace=True)
-
-    # sort data by FIPS
-    df['fips'].fillna(0, inplace=True)
-    indexFIPS = lambda fips: fips.astype(int)
-    df.sort_values(by=['fips'], inplace=True, key=indexFIPS)
-    df.index = np.arange(len(df))
+    df.drop(df[df['county'] == 'Unknown'].index, inplace=True)
 
     # process data
-    df = process.populate(df)
     df = process.remaining(df)
+    df = process.populate(df)
     p_cases, p_deaths = process.normalize(df)
     df['p_cases'] = p_cases
     df['p_deaths'] = p_deaths
+
+    # sort data by FIPS
+    df['fips'].fillna(0, inplace=True)
+    # indexFIPS = lambda fips: fips.astype(int)
+    df.sort_values(by=['fips'], inplace=True)
+    df.index = np.arange(len(df))
 
     # write data
     df.replace([np.inf, -np.inf], np.nan, inplace=True)

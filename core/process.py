@@ -8,7 +8,7 @@ from . import pd
 def populate(df):
     """Add corresponding population data to dataframe"""
     populations = pd.read_csv('data/populations.csv')
-    df['population'] = populations['pop']
+    df = df.merge(populations, on='fips', how='left')
     return df
 
 def remaining(df):
@@ -16,25 +16,18 @@ def remaining(df):
 
     # New York City, New York
     df.loc[df['county'] == 'New York City', 'fips'] = 'unique:nyc'
-    df.loc[df['county'] == 'New York City', 'population'] = 8467513
 
     # Kansas City, Missouri
     df.loc[df['county'] == 'Kansas City', 'fips'] = 'unique:kc'
-    df.loc[df['county'] == 'Kansas City', 'population'] = 508394
 
     # Joplin, Missouri
     df.loc[df['county'] == 'Joplin', 'fips'] = 'unique:jop'
-    df.loc[df['county'] == 'Joplin', 'population'] = 51846
 
     # Bristol Bay & Lake and Peninsula, Alaska
     df.loc[
         df['county'] == 'Bristol Bay plus Lake and Peninsula',
         'fips'
     ] = 'unique:bblp'
-    df.loc[
-        df['county'] == 'Bristol Bay plus Lake and Peninsula',
-        'population'
-    ] = 2254
 
     return df
     

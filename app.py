@@ -59,14 +59,19 @@ fig.update_layout(
 
 # create app layout
 app.layout = html.Div(children=[
-    html.H1(children='covid-notebook'),
+    html.H1(children='COVID-19 Notebook'),
     html.Div(children='''
-        An interactive notebook for examining trends in confirmed COVID-19 cases
-    '''),
+        An interactive notebook for examining trends in COVID-19 cases
+    ''', id='subtitle'),
     dcc.Graph(
-        id='COVID-19 cases by county',
+        id='graph',
         figure=fig
-    )
+    ),
+    dcc.Markdown(children=f'''
+        Data from The New York Times, based on reports from state and local health agencies.  
+        See also: <https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html>  
+        Last updated {core.get.last_update()}, at midnight UTC.
+    ''', id='footer'),
 ])
 
 

@@ -1,1 +1,12 @@
-/* CSS for Dash components */
+body {
+  margin: 0px;
+  height: 100vh;
+}
+
+#footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: calc(100vw - 25px);
+  height: 100px;
+}

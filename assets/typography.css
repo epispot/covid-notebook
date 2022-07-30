@@ -1,17 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Catamaran&family=Montserrat:wght@700&display=swap');
 
 body {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Catamaran', sans-serif;
   font-size: 16px;
   line-height: 1.5;
   padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 25px;
 }
 
 h1 {
-  font-family: 'Lora', serif;
+  font-family: 'Montserrat', sans-serif;
   margin-bottom: 12px;
 }
 
-div {
+#subtitle {
+  font-family: 'Catamaran', sans-serif;
+  font-size: 18px;
   margin-bottom: 25px;
+}
+
+#footer {
+  overflow-x: wrap;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  padding-left: 25px;
+  padding-bottom: 15px;
 }

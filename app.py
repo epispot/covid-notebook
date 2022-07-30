@@ -13,7 +13,6 @@ from urllib.request import urlopen
 import numpy as np
 import pandas as pd
 import epispot as epi
-import plotly.express as px
 import plotly.graph_objects as go
 from dash import Dash, html, dcc
 
@@ -35,17 +34,23 @@ fig = go.Figure(go.Choroplethmapbox(
     zmin=0, zmax=0.5,
     colorscale=[
         [0, '#adffc2'],
-        # [0.25, '#d4ff78'],
         [0.5, '#ff9382'],
-        # [0.75, '#ff2200'],
         [1, '#c90061']
     ],
-    marker_line_width=0
+    marker_line_width=0,
+    marker_opacity=0.75,
+    text=
+        df.county + ', ' + df.state
+        + '<br>cases: '
+            + np.round(100 * df.p_cases, 1).astype(str) + '%'
+        + '<br>deaths: '
+            + np.round(100 * df.p_deaths, 1).astype(str) + '%',
+    hoverinfo='text',
 ))
 fig.update_layout(
-    mapbox_style='carto-positron',
-    mapbox_zoom=3, 
-    mapbox_center = {'lat': 37.0902, 'lon': -95.7129}
+    mapbox_style='open-street-map',
+    mapbox_zoom=3,
+    mapbox_center = {'lat': 37.0902, 'lon': -95.7129},
 )
 fig.update_layout(
     margin={ 'r': 0, 't': 0, 'l': 0, 'b': 0 }

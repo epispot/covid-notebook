@@ -5,16 +5,10 @@
 # imports
 import core
 
-import json
-from csv import reader
-from datetime import date
-from urllib.request import urlopen
-
 import numpy as np
-import pandas as pd
 import epispot as epi
 import plotly.graph_objects as go
-from dash import Dash, html, dcc, Input, Output
+from dash import Dash, html, dcc, Input, Output, ctx, no_update
 
 
 # create app
@@ -57,17 +51,15 @@ fig.update_layout(
 )
 
 
-# callbacks
-@app.callback(
-    Output('graph', 'figure'),
-    Input('map-dropdown', 'value')
-)
+# helper funcs
 def change_map_view(value):
     """Change map center and zoom depending on selection"""
 
+    # default center, zoom
     center = {'lat': 37.0902, 'lon': -95.7129}
     zoom = 3
 
+    # match selection
     match value:
         case 'Contiguous U.S.':
             pass
@@ -84,41 +76,61 @@ def change_map_view(value):
             center = {'lat': 15.2, 'lon': 145.75}
             zoom = 7
 
-    # get data
-    df = core.find.data()
-    counties = core.get.counties()
-
-    # create main figure
-    fig = go.Figure(go.Choroplethmapbox(
-        geojson=counties, 
-        locations=df.fips, 
-        z=df.p_cases,
-        zmin=0, zmax=0.5,
-        colorscale=[
-            [0, '#adffc2'],
-            [0.5, '#ff9382'],
-            [1, '#c90061']
-        ],
-        marker_line_width=0,
-        marker_opacity=0.75,
-        text=
-            df.county + ', ' + df.state
-            + '<br>cases: '
-                + np.round(100 * df.p_cases, 1).astype(str) + '%'
-            + '<br>deaths: '
-                + np.round(100 * df.p_deaths, 1).astype(str) + '%',
-        hoverinfo='text',
-    ))
+    # update layout
     fig.update_layout(
         mapbox_style='open-street-map',
         mapbox_zoom=zoom,
         mapbox_center=center,
     )
-    fig.update_layout(
-        margin={ 'r': 0, 't': 0, 'l': 0, 'b': 0 }
+
+    return fig
+def change_choropleth(value):
+    """Change choropleth data to match selection"""
+
+    # default choropleth data
+    data = df.p_cases
+    zmax = 0.5
+
+    # match selection
+    match value:
+        case 'Cases': pass
+        case 'Fatalities':
+            data = df.p_deaths
+            zmax = 0.01
+
+    # change choropleth data
+    fig.update_traces(
+        z=data,
+        zmax=zmax,
     )
 
     return fig
+
+
+# callbacks
+@app.callback(
+    Output('graph', 'figure'),
+    [
+        Input('map-dropdown', 'value'),
+        Input('choropleth-dropdown', 'value')
+    ]
+)
+def update_figure(map_dropdown, choropleth_dropdown):
+    """Responsible for all updates to the main figure"""
+    
+    IDs = list(ctx.triggered_prop_ids.values())
+    if len(IDs) == 0: return no_update
+    ID = IDs[0]
+
+    out = no_update
+
+    match ID:
+        case 'map-dropdown':
+            out = change_map_view(map_dropdown)
+        case 'choropleth-dropdown':
+            out = change_choropleth(choropleth_dropdown)
+    
+    return out
 
 
 # create app layout
@@ -132,6 +144,10 @@ app.layout = html.Div(children=[
         'Puerto Rico & the U.S. Virgin Islands', 
         'Northern Mariana Islands'
     ], 'Contiguous U.S.', id='map-dropdown'),
+    dcc.Dropdown(
+        ['Cases', 'Fatalities'], 'Cases', 
+        id='choropleth-dropdown'
+    ),
     dcc.Graph(
         id='graph',
         figure=fig

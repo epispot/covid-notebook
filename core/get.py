@@ -26,9 +26,10 @@ def data(date):
     # process data
     df = process.remaining(df)
     df = process.populate(df)
-    p_cases, p_deaths = process.normalize(df)
+    p_cases, p_deaths, death_rate = process.normalize(df)
     df['p_cases'] = p_cases
     df['p_deaths'] = p_deaths
+    df['death_rate'] = death_rate
 
     # sort data by FIPS
     df['fips'].fillna(0, inplace=True)

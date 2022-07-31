@@ -31,4 +31,5 @@ def normalize(df):
     """Normalize data by population"""
     p_cases = df['cases'] / df['population']
     p_deaths = df['deaths'] / df['population']
-    return p_cases, p_deaths
+    death_rate = df['deaths'] / df['cases']
+    return p_cases, p_deaths, death_rate

@@ -38,7 +38,9 @@ fig = go.Figure(go.Choroplethmapbox(
         + '<br>cases: '
             + np.round(100 * df.p_cases, 1).astype(str) + '%'
         + '<br>deaths: '
-            + np.round(100 * df.p_deaths, 1).astype(str) + '%',
+            + np.round(100 * df.p_deaths, 1).astype(str) + '%'
+        + '<br>fatality rate: '
+            + np.round(100 * df.death_rate, 1).astype(str) + '%',
     hoverinfo='text',
 ))
 fig.update_layout(
@@ -97,6 +99,9 @@ def change_choropleth(value):
         case 'Fatalities':
             data = df.p_deaths
             zmax = 0.01
+        case 'Fatality Rate':
+            data = df.death_rate
+            zmax = 0.035
 
     # change choropleth data
     fig.update_traces(
@@ -145,7 +150,7 @@ app.layout = html.Div(children=[
         'Northern Mariana Islands'
     ], 'Contiguous U.S.', id='map-dropdown'),
     dcc.Dropdown(
-        ['Cases', 'Fatalities'], 'Cases', 
+        ['Cases', 'Fatalities', 'Fatality Rate'], 'Cases', 
         id='choropleth-dropdown'
     ),
     dcc.Graph(

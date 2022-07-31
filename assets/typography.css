@@ -21,9 +21,5 @@ h1 {
 }
 
 #footer {
-  overflow-x: wrap;
   background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  padding-left: 25px;
-  padding-bottom: 15px;
 }

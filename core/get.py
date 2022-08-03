@@ -5,11 +5,21 @@ from . import process
 from . import np
 from . import pd
 import json
+import os
 
 
 # functions
 def last_update():
     """Fetch last updated date from artifacts/last-update.txt"""
+    
+    # check if file exists
+    if not os.path.isfile('artifacts/last-update.txt'):
+        if not os.path.isdir('artifacts'):  # create containing directory
+            os.mkdir('artifacts')
+        with open('artifacts/last-update.txt', 'w+') as f:  # create file
+            f.write('never')
+    
+    # read file
     with open('artifacts/last-update.txt', 'r') as f:
         return f.read()
 

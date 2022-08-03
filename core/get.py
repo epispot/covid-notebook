@@ -13,9 +13,9 @@ def last_update():
     with open('artifacts/last-update.txt', 'r') as f:
         return f.read()
 
-def data(date):
-    """Fetch most recent county data from the NYTimes COVID-19 dataset"""
-    
+def cumulative(date):
+    """Fetch and process cumulative county data"""
+
     # fetch data
     URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties-recent.csv'
     df_raw = pd.read_csv(URL, dtype={'fips': str})
@@ -33,19 +33,63 @@ def data(date):
 
     # sort data by FIPS
     df['fips'].fillna(0, inplace=True)
-    # indexFIPS = lambda fips: fips.astype(int)
-    df.sort_values(by=['fips'], inplace=True)
+    indexFIPS = lambda fips: fips.astype(str)
+    df.sort_values(by=['fips'], inplace=True, key=indexFIPS)
     df.index = np.arange(len(df))
 
-    # write data
+    # replace data
     df.replace([np.inf, -np.inf], np.nan, inplace=True)
-    df.to_csv('artifacts/data.csv', index=False)
+
+    return df
+
+def rolling(date):
+    """Fetch and process rolling averages of new county data"""
+
+    # fetch data
+    URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/rolling-averages/us-counties-recent.csv'
+    df_raw = pd.read_csv(URL, dtype={'fips': str})
+    df = df_raw[df_raw['date'] == date].copy()
+    df.drop(columns=['date', 'cases', 'deaths'], inplace=True)
+    df['cases'] = df['cases_avg']
+    df['deaths'] = df['deaths_avg']
+    df.drop(columns=['cases_avg', 'deaths_avg'], inplace=True)
+    df.drop(df[df['county'] == 'Unknown'].index, inplace=True)
+
+    # process data
+    df = process.geoid2fips(df)
+    df = process.remaining(df)
+    df = process.populate(df)
+    p_cases, p_deaths, death_rate = process.normalize(df)
+    df['p_cases'] = p_cases
+    df['p_deaths'] = p_deaths
+    df['death_rate'] = death_rate
+
+    # sort data by FIPS
+    indexFIPS = lambda fips: fips.astype(str)
+    df.sort_values(by=['fips'], inplace=True, key=indexFIPS)
+    df.index = np.arange(len(df))
+
+    # replace data
+    df.replace([np.inf, -np.inf], np.nan, inplace=True)
+
+    return df
+
+def data(date):
+    """Fetch most recent data from the NYTimes COVID-19 dataset"""
+    
+    # get data
+    df1 = cumulative(date)
+    df2 = rolling(date)
+
+    # write data
+    df1.to_csv('artifacts/cumulative.csv', index=False)
+    df2.to_csv('artifacts/rolling.csv', index=False)
 
     # change last updated date
     with open('artifacts/last-update.txt', 'w') as f:
         f.write(date)
 
-    return df
+    return df1, df2
 
 def counties():
     """Return county GeoJSON data"""

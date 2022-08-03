@@ -5,6 +5,14 @@ from . import pd
 
 
 # functions
+def geoid2fips(df):
+    """Convert geoid-tagged dataset to FIPS"""
+    df['geoid'].fillna(0, inplace=True)
+    col = df['geoid'].copy()
+    df['fips'] = col.apply(lambda x: x[4:])
+    df.drop(columns=['geoid'], inplace=True)
+    return df
+
 def populate(df):
     """Add corresponding population data to dataframe"""
     populations = pd.read_csv('data/populations.csv')

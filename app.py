@@ -94,7 +94,7 @@ def update_source(value, key='Cases'):
             src = data[1]
             src_zmax = zmax[1]
         case 'Fatality Rate':
-            src = df.death_rate
+            src = data[2]
             src_zmax = zmax[2]
 
     fig.update_traces(
@@ -161,7 +161,7 @@ def change_choropleth(value):
             src = data[1]
             src_zmax = zmax[1]
         case 'Fatality Rate':
-            src = df.death_rate
+            src = data[2]
             src_zmax = zmax[2]
 
     # change choropleth data

@@ -202,7 +202,7 @@ def generate_info(src, map, choro):
             region = 'Puerto Rico & the U.S. Virgin Islands'
         case 'Northern Mariana Islands':
             subdivision = 'municipalities'
-            region = 'Northern Mariana Islands'
+            region = 'the Northern Mariana Islands'
 
     # match choropleth data
     match choro:

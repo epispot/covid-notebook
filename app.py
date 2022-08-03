@@ -13,6 +13,7 @@ from dash import Dash, html, dcc, Input, Output, ctx, no_update
 
 # create app
 app = Dash(__name__)
+server = app.server
 
 
 # get data

@@ -23,14 +23,12 @@ def last_update():
     with open('artifacts/last-update.txt', 'r') as f:
         return f.read()
 
-def cumulative(date):
+def cumulative():
     """Fetch and process cumulative county data"""
 
     # fetch data
     URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties-recent.csv'
-    df_raw = pd.read_csv(URL, dtype={'fips': str})
-    df = df_raw[df_raw['date'] == date].copy()
-    df.drop(columns=['date'], inplace=True)
+    df = pd.read_csv(URL, dtype={'fips': str})
     df.drop(df[df['county'] == 'Unknown'].index, inplace=True)
 
     # process data
@@ -52,14 +50,13 @@ def cumulative(date):
 
     return df
 
-def rolling(date):
+def rolling():
     """Fetch and process rolling averages of new county data"""
 
     # fetch data
     URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/rolling-averages/us-counties-recent.csv'
-    df_raw = pd.read_csv(URL, dtype={'fips': str})
-    df = df_raw[df_raw['date'] == date].copy()
-    df.drop(columns=['date', 'cases', 'deaths'], inplace=True)
+    df = pd.read_csv(URL, dtype={'fips': str})
+    df.drop(columns=['cases', 'deaths'], inplace=True)
     df['cases'] = df['cases_avg']
     df['deaths'] = df['deaths_avg']
     df.drop(columns=['cases_avg', 'deaths_avg'], inplace=True)
@@ -88,8 +85,8 @@ def data(date):
     """Fetch most recent data from the NYTimes COVID-19 dataset"""
     
     # get data
-    df1 = cumulative(date)
-    df2 = rolling(date)
+    df1 = cumulative()
+    df2 = rolling()
 
     # write data
     df1.to_csv('artifacts/cumulative.csv', index=False)
@@ -99,7 +96,7 @@ def data(date):
     with open('artifacts/last-update.txt', 'w') as f:
         f.write(date)
 
-    return df1, df2
+    return df1[df1['date'] == date], df2[df2['date'] == date]
 
 def counties():
     """Return county GeoJSON data"""

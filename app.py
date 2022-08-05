@@ -5,10 +5,11 @@
 # imports
 import core
 
-import numpy as np
 # import epispot as epi
+import numpy as np
 import plotly.graph_objects as go
 from dash import Dash, html, dcc, Input, Output, ctx, no_update
+from pandas import to_datetime
 
 
 # create app
@@ -24,8 +25,12 @@ counties = core.get.counties()
 
 
 # globals
+index = 0
 data = [df.p_cases, df.p_deaths, df.death_rate]
+labels = ['p_cases', 'p_deaths', 'death_rate']
 zmax = [0.5, 0.01, 0.035]
+center = {'lat': 37.0902, 'lon': -95.7129}
+zoom = 3
 
 
 # create main figure
@@ -62,9 +67,9 @@ fig.update_layout(
 
 
 # helper funcs
-def update_source(value, key='Cases'):
+def update_source(value):
     """Change data sources to fit selection"""
-    global df, source, data, zmax
+    global df, source, index, data, labels, zmax
 
     # match selection
     match value:
@@ -76,46 +81,49 @@ def update_source(value, key='Cases'):
 
     # configure parameters
     data = [df.p_cases, df.p_deaths, df.death_rate]
+    labels = ['p_cases', 'p_deaths', 'death_rate']
+
     if source == 'rolling':
+        
         data = [
             df['cases_avg_per_100k'], 
             df['deaths_avg_per_100k'], 
             df['death_rate']
         ]
+        labels = [
+            'cases_avg_per_100k', 
+            'deaths_avg_per_100k', 
+            'death_rate'
+        ]
+
     zmax = [0.5, 0.01, 0.035]
     if source == 'rolling': zmax = [75, 1, 0.035]
 
-    # get appropriate data source
-    src = data[0]
-    src_zmax = zmax[0]
-
-    match key:
-        case 'Cases': pass
-        case 'Fatalities':
-            src = data[1]
-            src_zmax = zmax[1]
-        case 'Fatality Rate':
-            src = data[2]
-            src_zmax = zmax[2]
-
+    # redraw figure
     fig.update_traces(
         locations=df.fips,
-        z=src,
-        zmax=src_zmax,
+        z=data[index],
+        zmax=zmax[index],
         text=
             df.county + ', ' + df.state
             + '<br>cases: '
-                + data[0].astype(str) + '/100k'
+                + np.round(data[0], 1).astype(str) + '/100k'
             + '<br>deaths: '
-                + data[1].astype(str) + '/100k'
+                + np.round(data[1], 1).astype(str) + '/100k'
             + '<br>fatality rate: '
                 + np.round(100 * data[2], 1).astype(str) + '%',
+    )
+    fig.update_layout(
+        mapbox_style='open-street-map',
+        mapbox_zoom=zoom,
+        mapbox_center=center,
     )
 
     return fig
 
 def change_map_view(value):
     """Change map center and zoom depending on selection"""
+    global center, zoom
 
     # default center, zoom
     center = {'lat': 37.0902, 'lon': -95.7129}
@@ -149,26 +157,26 @@ def change_map_view(value):
 
 def change_choropleth(value):
     """Change choropleth data to match selection"""
-    global data, zmax
+    global index
 
     # get appropriate data source
-    src = data[0]
-    src_zmax = zmax[0]
+    index = 0
 
     # match selection
     match value:
         case 'Cases': pass
-        case 'Fatalities':
-            src = data[1]
-            src_zmax = zmax[1]
-        case 'Fatality Rate':
-            src = data[2]
-            src_zmax = zmax[2]
+        case 'Fatalities': index = 1
+        case 'Fatality Rate': index = 2
 
     # change choropleth data
     fig.update_traces(
-        z=src,
-        zmax=src_zmax,
+        z=data[index],
+        zmax=zmax[index],
+    )
+    fig.update_layout(
+        mapbox_style='open-street-map',
+        mapbox_zoom=zoom,
+        mapbox_center=center,
     )
 
     return fig
@@ -221,6 +229,23 @@ def generate_info(src, map, choro):
 
     return text
 
+def format_data(col, index):
+    """Format data column for plotly display"""
+
+    label = labels[index]
+    match label:
+        case 'p_cases' | 'p_deaths' | 'death_rate':
+            return np.round(col * 100, 1).astype(str) + '%'
+        case 'cases_avg_per_100k' | 'deaths_avg_per_100k':
+            return np.round(col, 1).astype(str) + '/100k'
+
+def format_date(col):
+    """Format date column (as list of strings) for plotly display"""
+
+    # convert string of format '%Y-%m-%d' to date object
+    date = to_datetime(col)
+    return date.dt.strftime('%-m/%-d')
+
 
 # callbacks
 @app.callback(
@@ -245,7 +270,7 @@ def update_figure(src_drop, map_drop, choro_drop):
 
     match ID:
         case 'source-dropdown':
-            out = update_source(src_drop, key=choro_drop)
+            out = update_source(src_drop)
         case 'map-dropdown':
             out = change_map_view(map_drop)
         case 'choropleth-dropdown':
@@ -255,14 +280,14 @@ def update_figure(src_drop, map_drop, choro_drop):
     return out, info_out
 
 @app.callback(
-    Output('county-info-name', 'children'),
+    [
+        Output('county-info-name', 'children'),
+        Output('county-graph-container', 'children')
+    ],
     Input('graph', 'clickData')
 )
 def update_county(clickData):
-    """Responsible for updating the county info box"""
-
-    # default info
-    FIPS = 'Click on a county to see its data.'
+    """Responsible for updating the county popup"""
 
     # get info
     if clickData is None:
@@ -271,10 +296,24 @@ def update_county(clickData):
     FIPS = clickData['points'][0]['location']
 
     # process county data
-    data = df[df['fips'] == FIPS]
+    data = core.find.historical(FIPS, source=source)
     name = data['county'].values[0] + ', ' + data['state'].values[0]
 
-    return name
+    # generate figure
+    fig = go.Figure(go.Scatter(
+        x=data['date'], 
+        y=data[labels[index]],
+        mode='lines+markers',
+        text=
+            format_date(data['date']) + ': ' 
+            + format_data(data[labels[index]], index),
+        hoverinfo='text',
+    ))
+    fig.update_layout(
+        template='simple_white',
+    )
+
+    return name, dcc.Graph(figure=fig, id='county-graph')
 
 
 # create app layout

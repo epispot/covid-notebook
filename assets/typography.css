@@ -23,3 +23,8 @@ h1, h2 {
 #footer {
   background-color: rgba(255, 255, 255, 0.5);
 }
+
+#county-info-name {
+  margin-top: 0;
+  margin-bottom: 0;
+}

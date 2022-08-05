@@ -18,6 +18,19 @@ body {
 #graph-container {
   position: relative;
   margin-bottom: 25px;
+  height: 500px;
+}
+
+#graph {
+  height: 100%;
+}
+
+#county-graph-container {
+  margin-top: 15px;
+}
+
+#county-graph-container:empty {
+  margin-top: 0;
 }
 
 #county-info {
@@ -27,6 +40,8 @@ body {
   left: 15px;
   padding: 15px;
   width: 20%;
+  max-height: calc(100% - 60px);
+  overflow: scroll;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
@@ -34,7 +49,7 @@ body {
 
 @media (max-aspect-ratio: 3/2) {
   #county-info {
-    width: 40%;
+    width: 35%;
   }
 }
 

@@ -8,8 +8,9 @@ Pre-production tasks:
   - [x] Re-examine special geographic zones (e.g. territories, remaining blank spots)
 - [x] Efficient memory management
   - Delete data frames after use; reload from file
-- [ ] Add vaccination, mask use, and hospitalization data
-- [ ] Get historical data in popup for each county
+- [ ] Add county-specific figures
+  - [x] Get historical data for each county
+  - [ ] Display popup with historical data
 - [ ] Tidy up epispot v3
   - After epispot v3 is published
 - [ ] Make predictions

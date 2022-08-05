@@ -1,11 +1,10 @@
 """Helper functions for fetching relevant data"""
 
 # imports
-from . import process
-from . import np
-from . import pd
 import json
 import os
+
+from . import np, pd, process
 
 
 # functions

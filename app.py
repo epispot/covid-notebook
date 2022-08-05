@@ -3,14 +3,13 @@
 # visit http://127.0.0.1:8050/ in your web browser.
 
 # imports
-import core
-
 # import epispot as epi
 import numpy as np
 import plotly.graph_objects as go
-from dash import Dash, html, dcc, Input, Output, ctx, no_update
+from dash import Dash, Input, Output, ctx, dcc, html, no_update
 from pandas import to_datetime
 
+import core
 
 # create app
 app = Dash(__name__)

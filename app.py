@@ -344,9 +344,9 @@ app.layout = html.Div(children=[
     ], id='info'),
     dcc.Markdown(children=f'''
         Data from *The New York Times*, based on reports from state and
-        local health agencies.
+        local health agencies.  
         See also:
-        <https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html>
+        <https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html>  
         Last updated {core.get.last_update()}, at midnight UTC.
     ''', id='footer'),
 ])

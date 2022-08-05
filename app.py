@@ -296,13 +296,13 @@ app.layout = html.Div(children=[
         ['Cases', 'Fatalities', 'Fatality Rate'], 'Cases', 
         id='choropleth-dropdown'
     ),
-    dcc.Graph(
-        id='graph',
-        figure=fig
-    ),
     html.Div(children=[
-       html.H2(children='No county selected.', id='county-info-name') 
-    ], id='county-info'),
+        dcc.Graph(figure=fig, id='graph'),
+        html.Div(children=[
+            html.H2(children='No county selected.', id='county-info-name'),
+            html.Div(children=[], id='county-graph-container'),
+        ], id='county-info'),
+    ], id='graph-container'),
     html.Div(children=[
         'Viewing cumulative totals for all counties in the contiguous U.S.',
         html.Br(), 'Showing cases as percentage of total population.'

@@ -34,7 +34,7 @@ def remaining(df):
     # 48999: 'Pending County Assignment'
 
     return df
-    
+
 def normalize(df):
     """Normalize data by population"""
     p_cases = df['cases'] / df['population']

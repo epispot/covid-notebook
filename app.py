@@ -34,8 +34,8 @@ zoom = 3
 
 # create main figure
 fig = go.Figure(go.Choroplethmapbox(
-    geojson=counties, 
-    locations=df.fips, 
+    geojson=counties,
+    locations=df.fips,
     z=df.p_cases,
     zmin=0, zmax=0.5,
     colorscale=[
@@ -45,14 +45,13 @@ fig = go.Figure(go.Choroplethmapbox(
     ],
     marker_line_width=0,
     marker_opacity=0.75,
-    text=
-        df.county + ', ' + df.state
-        + '<br>cases: '
-            + np.round(100 * df.p_cases, 1).astype(str) + '%'
-        + '<br>deaths: '
-            + np.round(100 * df.p_deaths, 1).astype(str) + '%'
-        + '<br>fatality rate: '
-            + np.round(100 * df.death_rate, 1).astype(str) + '%',
+    text=df.county + ', ' + df.state
+    + '<br>cases: '
+    + np.round(100 * df.p_cases, 1).astype(str) + '%'
+    + '<br>deaths: '
+    + np.round(100 * df.p_deaths, 1).astype(str) + '%'
+    + '<br>fatality rate: '
+    + np.round(100 * df.death_rate, 1).astype(str) + '%',
     hoverinfo='text',
 ))
 fig.update_layout(
@@ -83,15 +82,15 @@ def update_source(value):
     labels = ['p_cases', 'p_deaths', 'death_rate']
 
     if source == 'rolling':
-        
+
         data = [
-            df['cases_avg_per_100k'], 
-            df['deaths_avg_per_100k'], 
+            df['cases_avg_per_100k'],
+            df['deaths_avg_per_100k'],
             df['death_rate']
         ]
         labels = [
-            'cases_avg_per_100k', 
-            'deaths_avg_per_100k', 
+            'cases_avg_per_100k',
+            'deaths_avg_per_100k',
             'death_rate'
         ]
 
@@ -103,14 +102,13 @@ def update_source(value):
         locations=df.fips,
         z=data[index],
         zmax=zmax[index],
-        text=
-            df.county + ', ' + df.state
-            + '<br>cases: '
-                + np.round(data[0], 1).astype(str) + '/100k'
-            + '<br>deaths: '
-                + np.round(data[1], 1).astype(str) + '/100k'
-            + '<br>fatality rate: '
-                + np.round(100 * data[2], 1).astype(str) + '%',
+        text=df.county + ', ' + df.state
+        + '<br>cases: '
+        + np.round(data[0], 1).astype(str) + '/100k'
+        + '<br>deaths: '
+        + np.round(data[1], 1).astype(str) + '/100k'
+        + '<br>fatality rate: '
+        + np.round(100 * data[2], 1).astype(str) + '%',
     )
     fig.update_layout(
         mapbox_style='open-street-map',
@@ -182,7 +180,7 @@ def change_choropleth(value):
 
 def generate_info(src, map, choro):
     """Generate info text based on selection"""
-    
+
     # defaults
     grouping = 'cumulative totals'
     subdivision = 'counties'
@@ -260,14 +258,14 @@ def format_date(col):
 )
 def update_figure(src_drop, map_drop, choro_drop):
     """Responsible for all updates to the main figure"""
-    
-    IDs = list(ctx.triggered_prop_ids.values())
-    if len(IDs) == 0: return no_update
-    ID = IDs[0]
+
+    ids = list(ctx.triggered_prop_ids.values())
+    if len(ids) == 0: return no_update
+    id = ids[0]
 
     out = no_update
 
-    match ID:
+    match id:
         case 'source-dropdown':
             out = update_source(src_drop)
         case 'map-dropdown':
@@ -275,7 +273,7 @@ def update_figure(src_drop, map_drop, choro_drop):
         case 'choropleth-dropdown':
             out = change_choropleth(choro_drop)
 
-    info_out = generate_info(src_drop, map_drop, choro_drop)    
+    info_out = generate_info(src_drop, map_drop, choro_drop)
     return out, info_out
 
 @app.callback(
@@ -285,27 +283,26 @@ def update_figure(src_drop, map_drop, choro_drop):
     ],
     Input('graph', 'clickData')
 )
-def update_county(clickData):
+def update_county(click_data):
     """Responsible for updating the county popup"""
 
     # get info
-    if clickData is None:
+    if click_data is None:
         return no_update
-    
-    FIPS = clickData['points'][0]['location']
+
+    fips = click_data['points'][0]['location']
 
     # process county data
-    data = core.find.historical(FIPS, source=source)
+    data = core.find.historical(fips, source=source)
     name = data['county'].values[0] + ', ' + data['state'].values[0]
 
     # generate figure
     fig = go.Figure(go.Scatter(
-        x=data['date'], 
+        x=data['date'],
         y=data[labels[index]],
         mode='lines+markers',
-        text=
-            format_date(data['date']) + ': ' 
-            + format_data(data[labels[index]], index),
+        text=format_date(data['date']) + ': '
+        + format_data(data[labels[index]], index),
         hoverinfo='text',
     ))
     fig.update_layout(
@@ -322,16 +319,16 @@ app.layout = html.Div(children=[
         An interactive notebook for examining trends in COVID-19 cases
     ''', id='subtitle'),
     dcc.Dropdown(
-        ['Cumulative', 'Current'], 'Cumulative', 
+        ['Cumulative', 'Current'], 'Cumulative',
         id='source-dropdown'
     ),
     dcc.Dropdown([
-        'Contiguous U.S.', 'Alaska', 'Hawaii', 
-        'Puerto Rico & the U.S. Virgin Islands', 
+        'Contiguous U.S.', 'Alaska', 'Hawaii',
+        'Puerto Rico & the U.S. Virgin Islands',
         'Northern Mariana Islands'
     ], 'Contiguous U.S.', id='map-dropdown'),
     dcc.Dropdown(
-        ['Cases', 'Fatalities', 'Fatality Rate'], 'Cases', 
+        ['Cases', 'Fatalities', 'Fatality Rate'], 'Cases',
         id='choropleth-dropdown'
     ),
     html.Div(children=[
@@ -344,10 +341,12 @@ app.layout = html.Div(children=[
     html.Div(children=[
         'Viewing cumulative totals for all counties in the contiguous U.S.',
         html.Br(), 'Showing cases as percentage of total population.'
-    ], id='info'),    
+    ], id='info'),
     dcc.Markdown(children=f'''
-        Data from *The New York Times*, based on reports from state and local health agencies.  
-        See also: <https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html>  
+        Data from *The New York Times*, based on reports from state and
+        local health agencies.
+        See also:
+        <https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html>
         Last updated {core.get.last_update()}, at midnight UTC.
     ''', id='footer'),
 ])

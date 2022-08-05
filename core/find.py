@@ -10,7 +10,7 @@ from . import get, np, pd
 # functions
 def data(source='cumulative'):
     """Fetch county data from the NYTimes COVID-19 dataset"""
-    
+
     # get last updated date
     last_update = datetime.utcnow() - timedelta(hours=29)
     last_update = last_update.strftime('%Y-%m-%d')
@@ -22,10 +22,10 @@ def data(source='cumulative'):
         match source:
             case 'cumulative': return cumulative
             case 'rolling': return rolling
-    
+
     else:  # cached data is up-to-date
         full = pd.read_csv(
-            f'artifacts/{source}.csv', 
+            f'artifacts/{source}.csv',
             dtype={'fips': str}
         )
         relevant = full[full['date'] == last_update].copy()
@@ -34,7 +34,7 @@ def data(source='cumulative'):
 
 def historical(fips, source='cumulative'):
     """Fetch historical data for a given county"""
-    
+
     # check if artifacts/{source}.csv exists
     if not os.path.exists(f'artifacts/{source}.csv'):
         data()

@@ -6,6 +6,7 @@ body {
 .dash-dropdown {
   display: inline-block;
   width: 400px;
+  max-width: 100%;
   margin-right: 15px;
   margin-bottom: 15px;
 }
@@ -54,6 +55,7 @@ body {
 }
 
 @media (max-aspect-ratio: 1/1) {
+
   #county-info {
     position: relative;
     width: 100%;
@@ -62,4 +64,9 @@ body {
     padding-left: 0;
     left: 0;
   }
+
+  #graph-container {
+    height: fit-content;
+  }
+
 }

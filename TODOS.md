@@ -11,9 +11,12 @@ Pre-production tasks:
 - [x] Add county-specific figures
   - [x] Get historical data for each county
   - [x] Display popup with historical data
-- [ ] Tidy up epispot v3
-  - After epispot v3 is published
+- [ ] Fully prepare epispot
+  - [x] Add necessary functionality to epispot v3
+  - [ ] Publish official release candidate: v3.0.0-rc.1
 - [ ] Make predictions
+- [ ] Finalize curve-fitting predictions
+- [ ] Publish epispot v3
 - [ ] Work on UI
   - [ ] Show state boundaries
   - [ ] Add option to deselect counties

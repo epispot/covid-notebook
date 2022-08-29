@@ -11,6 +11,27 @@ body {
   margin-bottom: 15px;
 }
 
+#forecasting-options {
+  display: block;
+  float: none;
+  width: 100%;
+  height: 200px; 
+}
+
+.forecasting-option {
+  float: left;
+  width: 150px;
+}
+
+.forecasting-option label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#info {
+  margin-top: 25px;
+}
+
 #footer {
   margin-top: 25px;
   padding-bottom: 25px;
@@ -67,6 +88,20 @@ body {
 
   #graph-container {
     height: fit-content;
+  }
+
+}
+
+@media (max-width: 500px) {
+  
+  .forecasting-option {
+    float: none;
+    width: 150px;
+  }
+
+  #forecasting-options {
+    display: block;
+    height: auto; 
   }
 
 }

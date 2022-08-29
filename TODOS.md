@@ -14,7 +14,7 @@ Pre-production tasks:
 - [x] Fully prepare epispot
   - [x] Add necessary functionality to epispot v3
   - [x] Publish official release candidate: v3.0.0-rc.1
-- [ ] Make predictions
+- [x] Make predictions
 - [ ] Add CI/CD
 - [ ] Work on UI
   - [ ] Show state boundaries

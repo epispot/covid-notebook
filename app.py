@@ -4,12 +4,13 @@
 
 # imports
 from datetime import timedelta
-from epispot.estimates.getters import query
-from epispot.analysis import normalize
-from epispot import comps, models, pre
+
 import numpy as np
 import plotly.graph_objects as go
 from dash import Dash, Input, Output, ctx, dcc, html, no_update
+from epispot import comps, models, pre
+from epispot.analysis import normalize
+from epispot.estimates.getters import query
 from pandas import DataFrame, to_datetime
 
 import core

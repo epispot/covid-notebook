@@ -287,7 +287,7 @@ def get_forecast_data(fips):
 
 def to_series(predictions, dates, n, source):
     """Turn predictions into formatted series and rearrange"""
-    
+
     def frame(cols, names, dates):
         """Put columns into data frames and format"""
         out = []
@@ -303,7 +303,7 @@ def to_series(predictions, dates, n, source):
                     'date': dates[:len(col)],
                     names[i]: col / n
                 }))
-        
+
         return out
 
     if source == 'historical':
@@ -313,7 +313,7 @@ def to_series(predictions, dates, n, source):
             dates
         )
         return active, recovered
-    
+
     last = to_datetime(dates.tail(1).values[0]) \
         - timedelta(days=params['delay'])
     future = [
@@ -323,7 +323,7 @@ def to_series(predictions, dates, n, source):
     predictions = np.array(predictions)
 
     match forecast['model']:
-        
+
         case 'SIR':
             infected, removed = frame(
                 [predictions[:, 1], predictions[:, 2]],
@@ -336,7 +336,7 @@ def to_series(predictions, dates, n, source):
             exposed, infected, removed = frame(
                 [predictions[:, 1], predictions[:, 2], predictions[:, 3]],
                 [
-                    'exposed (predicted)', 'infected (predicted)', 
+                    'exposed (predicted)', 'infected (predicted)',
                     'removed (predicted)'
                 ],
                 future
@@ -347,7 +347,7 @@ def to_series(predictions, dates, n, source):
             infected, recovered, dead = frame(
                 [predictions[:, 1], predictions[:, 2], predictions[:, 3]],
                 [
-                    'infected (predicted)', 'recovered (predicted)', 
+                    'infected (predicted)', 'recovered (predicted)',
                     'dead (predicted)'
                 ],
                 future
@@ -357,13 +357,13 @@ def to_series(predictions, dates, n, source):
         case 'SEIRD':
             exposed, infected, recovered, dead = frame(
                 [
-                    predictions[:, 1], 
-                    predictions[:, 2], 
-                    predictions[:, 3], 
+                    predictions[:, 1],
+                    predictions[:, 2],
+                    predictions[:, 3],
                     predictions[:, 4]
                 ],
                 [
-                    'exposed (predicted)', 'infected (predicted)', 
+                    'exposed (predicted)', 'infected (predicted)',
                     'recovered (predicted)', 'dead (predicted)'
                 ],
                 future
@@ -372,7 +372,7 @@ def to_series(predictions, dates, n, source):
 
 def create_seird(r_0, gamma, n, alpha, rho, delta):
     """Create and returned a pre-compiled SEIRD model"""
-    
+
     # compile compartments
     susceptible = comps.Susceptible(r_0, gamma, n)
     exposed = comps.Exposed()
@@ -383,7 +383,7 @@ def create_seird(r_0, gamma, n, alpha, rho, delta):
     # compile parameters
     matrix = np.empty((5, 5), dtype=tuple)
     matrix.fill((1.0, 1.0))  # default probability and rate
-    
+
     matrix[1][2] = (1, delta)
 
     recovery_rate = (gamma - alpha * rho) / (1 - alpha)
@@ -413,7 +413,7 @@ def forecast_historical(data):
     )
     infected_deltas = normalize.deltas(total_infected)
     fatalities_deltas = normalize.deltas(total_fatalities)
-    
+
     # normalize data
     infected = normalize.active(
         infected_deltas, round(1 / params['gamma_inf']), delay=params['delay']
@@ -493,7 +493,7 @@ def forecast_all(historical, N):
 
 def add_to_figure(fig, series):
     """Add one or more series to the figure"""
-    
+
     def scale(k):
         # match scaling
         if source == 'rolling' and index in [0, 1]:
@@ -517,11 +517,11 @@ def run_forecast(fig, fips):
     """"Run a forecast and add its results to the county graph"""
     data = get_forecast_data(fips)
     population = data['population'].values[0]
-    
+
     historical = forecast_historical(data)
     series = to_series(historical, data['date'], population, 'historical')
     add_to_figure(fig, series)
-    
+
     if forecast['extent'] == 'Historical':
         return fig
 
@@ -678,9 +678,9 @@ app.layout = html.Div(children=[
     ], id='info'),
     dcc.Markdown(children=f'''
         Data from *The New York Times*, based on reports from state and
-        local health agencies.  
+        local health agencies.
         See also:
-        <https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html>  
+        <https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html>
         Last updated {core.get.last_update()}, at midnight UTC.
     ''', id='footer'),
     # for callbacks w/ no output

@@ -439,7 +439,7 @@ def forecast_historical(data):
 
     return infected, fatalities, recovered
 
-def forecast_all(historical, N):
+def forecast_all(historical, n):
     """Generate predictive forecasts for all compartments"""
 
     # process available data
@@ -447,7 +447,7 @@ def forecast_all(historical, N):
     infected = infected[-1]
     fatalities = fatalities[-1]
     recovered = recovered[-1]
-    remaining = N - (infected + fatalities + recovered)
+    remaining = n - (infected + fatalities + recovered)
 
     # get parameter set
     param_set = None
@@ -462,23 +462,23 @@ def forecast_all(historical, N):
 
     match forecast['model']:
         case 'SIR':
-            model = pre.sir(param_set['R_0'], params['gamma_inf'], N)
+            model = pre.sir(param_set['R_0'], params['gamma_inf'], n)
             state = [remaining, infected, fatalities + recovered]
         case 'SEIR':
             model = pre.seir(
-                param_set['R_0'], params['gamma_inf'], N,
+                param_set['R_0'], params['gamma_inf'], n,
                 param_set['delta']
             )
             state = [remaining, 0, infected, fatalities + recovered]
         case 'SIRD':
             model = pre.sird(
-                param_set['R_0'], params['gamma_inf'], N,
+                param_set['R_0'], params['gamma_inf'], n,
                 param_set['alpha'], param_set['rho']
             )
             state = [remaining, infected, recovered, fatalities]
         case 'SEIRD':
             model = create_seird(
-                param_set['R_0'], params['gamma_inf'], N,
+                param_set['R_0'], params['gamma_inf'], n,
                 param_set['alpha'], param_set['rho'],
                 param_set['delta']
             )

@@ -14,6 +14,10 @@ h1, h2 {
   margin-bottom: 12px;
 }
 
+a {
+  word-wrap: break-word;
+}
+
 #subtitle {
   font-family: 'Catamaran', sans-serif;
   font-size: 18px;

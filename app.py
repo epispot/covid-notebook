@@ -313,8 +313,12 @@ def to_series(predictions, dates, n, source):
         )
         return active, recovered
     
-    last = to_datetime(dates.tail(1).values[0])
-    future = [last + timedelta(days=i + 1) for i in range(14)]
+    last = to_datetime(dates.tail(1).values[0]) \
+        - timedelta(days=params['delay'])
+    future = [
+        last + timedelta(days=i + 1)
+        for i in range(14 + params['delay'])
+    ]
     predictions = np.array(predictions)
 
     match forecast['model']:
@@ -480,7 +484,10 @@ def forecast_all(historical, N):
             state = [remaining, 0, infected, recovered, fatalities]
 
     # get predictions
-    predicted = model.integrate(range(14), starting_state=np.array(state))
+    predicted = model.integrate(
+        range(14 + params['delay']),
+        starting_state=np.array(state)
+    )
     return predicted
 
 def add_to_figure(fig, series):

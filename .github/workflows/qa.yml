@@ -55,19 +55,19 @@ jobs:
     - name: Show problems
       continue-on-error: true
       run: |
-        poetry run flake8
+        poetry run flake8 app.py core/*.py
     - name: Run QA Tests
       run: |
-        poetry run isort .
-        poetry run autopep8 --in-place **/*.py
-        poetry run ttws .
+        poetry run isort app.py core/*.py
+        poetry run autopep8 --in-place app.py core/*.py
+        poetry run ttws app.py core/*.py
     - name: Show unresolved problems
       run: |
-        poetry run flake8
+        poetry run flake8 app.py core/*.py
 
     - name: Commit changes
       continue-on-error: true
       run: |
-        git add .
+        git add app.py core/*.py
         git commit -m "[auto]: Fix code style"
         git push

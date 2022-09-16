@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: 'pip'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    assignees:
+      - 'quantum9innovation'
+    commit-message:
+      prefix: '[dep]'
+      prefix-development: '[dep/dev]'
+    labels:
+      - 'dependabot'

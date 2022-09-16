@@ -1,18 +1,4 @@
 [[package]]
-name = "attrs"
-version = "22.1.0"
-description = "Classes Without Boilerplate"
-category = "dev"
-optional = false
-python-versions = ">=3.5"
-
-[package.extras]
-dev = ["cloudpickle", "coverage[toml] (>=5.0.2)", "furo", "hypothesis", "mypy (>=0.900,!=0.940)", "pre-commit", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "sphinx", "sphinx-notfound-page", "zope.interface"]
-docs = ["furo", "sphinx", "sphinx-notfound-page", "zope.interface"]
-tests = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "zope.interface"]
-tests_no_zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
-
-[[package]]
 name = "autopep8"
 version = "1.6.0"
 description = "A tool that automatically formats Python code to conform to the PEP 8 style guide"
@@ -25,46 +11,12 @@ pycodestyle = ">=2.8.0"
 toml = "*"
 
 [[package]]
-name = "beautifulsoup4"
-version = "4.11.1"
-description = "Screen-scraping library"
-category = "dev"
-optional = false
-python-versions = ">=3.6.0"
-
-[package.dependencies]
-soupsieve = ">1.2"
-
-[package.extras]
-html5lib = ["html5lib"]
-lxml = ["lxml"]
-
-[[package]]
 name = "Brotli"
 version = "1.0.9"
 description = "Python bindings for the Brotli compression library"
 category = "main"
 optional = false
 python-versions = "*"
-
-[[package]]
-name = "certifi"
-version = "2022.9.14"
-description = "Python package for providing Mozilla's CA Bundle."
-category = "dev"
-optional = false
-python-versions = ">=3.6"
-
-[[package]]
-name = "charset-normalizer"
-version = "2.1.1"
-description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
-category = "dev"
-optional = false
-python-versions = ">=3.6.0"
-
-[package.extras]
-unicode_backport = ["unicodedata2"]
 
 [[package]]
 name = "click"
@@ -150,14 +102,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, 
 
 [package.extras]
 graph = ["objgraph (>=1.7.2)"]
-
-[[package]]
-name = "docopt"
-version = "0.6.2"
-description = "Pythonic argument parser, that will make you smile"
-category = "dev"
-optional = false
-python-versions = "*"
 
 [[package]]
 name = "epispot"
@@ -270,14 +214,6 @@ setproctitle = ["setproctitle"]
 tornado = ["tornado (>=0.2)"]
 
 [[package]]
-name = "idna"
-version = "3.4"
-description = "Internationalized Domain Names in Applications (IDNA)"
-category = "dev"
-optional = false
-python-versions = ">=3.5"
-
-[[package]]
 name = "isort"
 version = "5.10.1"
 description = "A Python utility / library to sort Python imports."
@@ -320,31 +256,6 @@ description = "A fast implementation of the Cassowary constraint solver"
 category = "main"
 optional = false
 python-versions = ">=3.7"
-
-[[package]]
-name = "lock-requirements"
-version = "0.1.1"
-description = "A CLI tool to update your requirements.txt file package versions to be locked/fixed to the latest versions available on PyPI."
-category = "dev"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-docopt = ">=0.5.0,<1.0.0"
-pypi-simple = ">=0.4.0,<1.0.0"
-requirements-parser = ">=0.2.0,<1.0.0"
-wheel = "*"
-
-[[package]]
-name = "mailbits"
-version = "0.2.1"
-description = "Assorted e-mail utility functions"
-category = "dev"
-optional = false
-python-versions = "~=3.6"
-
-[package.dependencies]
-attrs = ">=18.1"
 
 [[package]]
 name = "MarkupSafe"
@@ -478,23 +389,6 @@ python-versions = ">=3.6.8"
 diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
-name = "pypi-simple"
-version = "0.10.0"
-description = "PyPI Simple Repository API client library"
-category = "dev"
-optional = false
-python-versions = "~=3.6"
-
-[package.dependencies]
-beautifulsoup4 = ">=4.5,<5.0"
-mailbits = ">=0.2,<1.0"
-packaging = ">=20"
-requests = ">=2.20,<3.0"
-
-[package.extras]
-tqdm = ["tqdm"]
-
-[[package]]
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
@@ -520,35 +414,6 @@ description = "World timezone definitions, modern and historical"
 category = "main"
 optional = false
 python-versions = "*"
-
-[[package]]
-name = "requests"
-version = "2.28.1"
-description = "Python HTTP for Humans."
-category = "dev"
-optional = false
-python-versions = ">=3.7, <4"
-
-[package.dependencies]
-certifi = ">=2017.4.17"
-charset-normalizer = ">=2,<3"
-idna = ">=2.5,<4"
-urllib3 = ">=1.21.1,<1.27"
-
-[package.extras]
-socks = ["PySocks (>=1.5.6,!=1.5.7)"]
-use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
-
-[[package]]
-name = "requirements-parser"
-version = "0.5.0"
-description = "This is a small Python module for parsing Pip requirement files."
-category = "dev"
-optional = false
-python-versions = ">=3.6,<4.0"
-
-[package.dependencies]
-types-setuptools = ">=57.0.0"
 
 [[package]]
 name = "setuptools"
@@ -587,14 +452,6 @@ description = "Python 2 and 3 compatibility utilities"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
-
-[[package]]
-name = "soupsieve"
-version = "2.3.2.post1"
-description = "A modern CSS selector implementation for Beautiful Soup."
-category = "dev"
-optional = false
-python-versions = ">=3.6"
 
 [[package]]
 name = "tenacity"
@@ -639,33 +496,12 @@ python-magic = "*"
 testing = ["pytest"]
 
 [[package]]
-name = "types-setuptools"
-version = "65.3.0"
-description = "Typing stubs for setuptools"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "typing-extensions"
 version = "4.3.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
-
-[[package]]
-name = "urllib3"
-version = "1.26.12"
-description = "HTTP library with thread-safe connection pooling, file post, and more."
-category = "dev"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, <4"
-
-[package.extras]
-brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)", "brotlipy (>=0.6.0)"]
-secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "ipaddress", "pyOpenSSL (>=0.14)", "urllib3-secure-extra"]
-socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "Werkzeug"
@@ -681,34 +517,15 @@ MarkupSafe = ">=2.1.1"
 [package.extras]
 watchdog = ["watchdog"]
 
-[[package]]
-name = "wheel"
-version = "0.37.1"
-description = "A built-package format for Python"
-category = "dev"
-optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
-
-[package.extras]
-test = ["pytest (>=3.0.0)", "pytest-cov"]
-
 [metadata]
 lock-version = "1.1"
 python-versions = '~3.10.6'
-content-hash = "f71fe0eab56b288afec00ec18ff9b46cc177fd997ac74232a128b8b7ac22d8e2"
+content-hash = "462cd7e49ee4bccb05efa56dab71a9246bf96a915ef977ba8667ec9ef3ef3e62"
 
 [metadata.files]
-attrs = [
-    {file = "attrs-22.1.0-py2.py3-none-any.whl", hash = "sha256:86efa402f67bf2df34f51a335487cf46b1ec130d02b8d39fd248abfd30da551c"},
-    {file = "attrs-22.1.0.tar.gz", hash = "sha256:29adc2665447e5191d0e7c568fde78b21f9672d344281d0c6e1ab085429b22b6"},
-]
 autopep8 = [
     {file = "autopep8-1.6.0-py2.py3-none-any.whl", hash = "sha256:ed77137193bbac52d029a52c59bec1b0629b5a186c495f1eb21b126ac466083f"},
     {file = "autopep8-1.6.0.tar.gz", hash = "sha256:44f0932855039d2c15c4510d6df665e4730f2b8582704fa48f9c55bd3e17d979"},
-]
-beautifulsoup4 = [
-    {file = "beautifulsoup4-4.11.1-py3-none-any.whl", hash = "sha256:58d5c3d29f5a36ffeb94f02f0d786cd53014cf9b3b3951d42e0080d8a9498d30"},
-    {file = "beautifulsoup4-4.11.1.tar.gz", hash = "sha256:ad9aa55b65ef2808eb405f46cf74df7fcb7044d5cbc26487f96eb2ef2e436693"},
 ]
 Brotli = [
     {file = "Brotli-1.0.9-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:268fe94547ba25b58ebc724680609c8ee3e5a843202e9a381f6f9c5e8bdb5c70"},
@@ -774,14 +591,6 @@ Brotli = [
     {file = "Brotli-1.0.9-pp37-pypy37_pp73-win_amd64.whl", hash = "sha256:76ffebb907bec09ff511bb3acc077695e2c32bc2142819491579a695f77ffd4d"},
     {file = "Brotli-1.0.9.zip", hash = "sha256:4d1b810aa0ed773f81dceda2cc7b403d01057458730e309856356d4ef4188438"},
 ]
-certifi = [
-    {file = "certifi-2022.9.14-py3-none-any.whl", hash = "sha256:e232343de1ab72c2aa521b625c80f699e356830fd0e2c620b465b304b17b0516"},
-    {file = "certifi-2022.9.14.tar.gz", hash = "sha256:36973885b9542e6bd01dea287b2b4b3b21236307c56324fcc3f1160f2d655ed5"},
-]
-charset-normalizer = [
-    {file = "charset-normalizer-2.1.1.tar.gz", hash = "sha256:5a3d016c7c547f69d6f81fb0db9449ce888b418b5b9952cc5e6e66843e9dd845"},
-    {file = "charset_normalizer-2.1.1-py3-none-any.whl", hash = "sha256:83e9a75d1911279afd89352c68b45348559d1fc0506b054b346651b5e7fee29f"},
-]
 click = [
     {file = "click-8.1.3-py3-none-any.whl", hash = "sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48"},
     {file = "click-8.1.3.tar.gz", hash = "sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e"},
@@ -814,9 +623,6 @@ dill = [
     {file = "dill-0.3.5.1-py2.py3-none-any.whl", hash = "sha256:33501d03270bbe410c72639b350e941882a8b0fd55357580fbc873fba0c59302"},
     {file = "dill-0.3.5.1.tar.gz", hash = "sha256:d75e41f3eff1eee599d738e76ba8f4ad98ea229db8b085318aa2b3333a208c86"},
 ]
-docopt = [
-    {file = "docopt-0.6.2.tar.gz", hash = "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"},
-]
 epispot = [
     {file = "epispot-3.0.0rc1-py3-none-any.whl", hash = "sha256:2b959e40a85ddd11bbe915258d018dc5a932f87b408f8e5a34db4ee39ec92021"},
     {file = "epispot-3.0.0rc1.tar.gz", hash = "sha256:7ade8e766dd9a271dda7f1801ed1095d2989f29e169c8ef955d8a207d4422404"},
@@ -844,10 +650,6 @@ fonttools = [
 gunicorn = [
     {file = "gunicorn-20.1.0-py3-none-any.whl", hash = "sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e"},
     {file = "gunicorn-20.1.0.tar.gz", hash = "sha256:e0a968b5ba15f8a328fdfd7ab1fcb5af4470c28aaf7e55df02a99bc13138e6e8"},
-]
-idna = [
-    {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
-    {file = "idna-3.4.tar.gz", hash = "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"},
 ]
 isort = [
     {file = "isort-5.10.1-py3-none-any.whl", hash = "sha256:6f62d78e2f89b4500b080fe3a81690850cd254227f27f75c3a0c491a1f351ba7"},
@@ -930,14 +732,6 @@ kiwisolver = [
     {file = "kiwisolver-1.4.4-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f6cb459eea32a4e2cf18ba5fcece2dbdf496384413bc1bae15583f19e567f3b2"},
     {file = "kiwisolver-1.4.4-pp39-pypy39_pp73-win_amd64.whl", hash = "sha256:36dafec3d6d6088d34e2de6b85f9d8e2324eb734162fba59d2ba9ed7a2043d5b"},
     {file = "kiwisolver-1.4.4.tar.gz", hash = "sha256:d41997519fcba4a1e46eb4a2fe31bc12f0ff957b2b81bac28db24744f333e955"},
-]
-lock-requirements = [
-    {file = "lock-requirements-0.1.1.tar.gz", hash = "sha256:8a4d10b79f2ebece6e1967a5542b7ac47a2ba98acef054e8bfc5a43a1c3bef23"},
-    {file = "lock_requirements-0.1.1-py2.py3-none-any.whl", hash = "sha256:ec12b5a4eeacaa0bc38815e26a0847dedfe2b1621a3d1d0dfcda6a92c60d9c83"},
-]
-mailbits = [
-    {file = "mailbits-0.2.1-py3-none-any.whl", hash = "sha256:04c06b036bba93067d96b08288780ae7002ba604ac7b205bc55dca52474fc3e2"},
-    {file = "mailbits-0.2.1.tar.gz", hash = "sha256:eb53610e01611a95d2ae46559e00d862d907c776e88034dd53020a53baac21d1"},
 ]
 MarkupSafe = [
     {file = "MarkupSafe-2.1.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:86b1f75c4e7c2ac2ccdaec2b9022845dbb81880ca318bb7a0a01fbf7813e3812"},
@@ -1159,10 +953,6 @@ pyparsing = [
     {file = "pyparsing-3.0.9-py3-none-any.whl", hash = "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"},
     {file = "pyparsing-3.0.9.tar.gz", hash = "sha256:2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"},
 ]
-pypi-simple = [
-    {file = "pypi-simple-0.10.0.tar.gz", hash = "sha256:d4fe24aedcb1a9c6f0eb4b9517c2492c060b0b7c083b57c75d8f03cdba0ae7c4"},
-    {file = "pypi_simple-0.10.0-py3-none-any.whl", hash = "sha256:87272a1df98c04d66ed6d4370e3df0260ea75cd3684b498c62de538216781a73"},
-]
 python-dateutil = [
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
@@ -1175,14 +965,6 @@ pytz = [
     {file = "pytz-2022.2.1-py2.py3-none-any.whl", hash = "sha256:220f481bdafa09c3955dfbdddb7b57780e9a94f5127e35456a48589b9e0c0197"},
     {file = "pytz-2022.2.1.tar.gz", hash = "sha256:cea221417204f2d1a2aa03ddae3e867921971d0d76f14d87abb4414415bbdcf5"},
 ]
-requests = [
-    {file = "requests-2.28.1-py3-none-any.whl", hash = "sha256:8fefa2a1a1365bf5520aac41836fbee479da67864514bdb821f31ce07ce65349"},
-    {file = "requests-2.28.1.tar.gz", hash = "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"},
-]
-requirements-parser = [
-    {file = "requirements-parser-0.5.0.tar.gz", hash = "sha256:3336f3a3ae23e06d3f0f88595e4052396e3adf91688787f637e5d2ca1a904069"},
-    {file = "requirements_parser-0.5.0-py3-none-any.whl", hash = "sha256:e7fcdcd04f2049e73a9fb150d8a0f9d51ce4108f5f7cbeac74c484e17b12bcd9"},
-]
 setuptools = [
     {file = "setuptools-65.3.0-py3-none-any.whl", hash = "sha256:2e24e0bec025f035a2e72cdd1961119f557d78ad331bb00ff82efb2ab8da8e82"},
     {file = "setuptools-65.3.0.tar.gz", hash = "sha256:7732871f4f7fa58fb6bdcaeadb0161b2bd046c85905dbaa066bdcbcc81953b57"},
@@ -1194,10 +976,6 @@ setuptools-scm = [
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
-]
-soupsieve = [
-    {file = "soupsieve-2.3.2.post1-py3-none-any.whl", hash = "sha256:3b2503d3c7084a42b1ebd08116e5f81aadfaea95863628c80a3b774a11b7c759"},
-    {file = "soupsieve-2.3.2.post1.tar.gz", hash = "sha256:fc53893b3da2c33de295667a0e19f078c14bf86544af307354de5fcf12a3f30d"},
 ]
 tenacity = [
     {file = "tenacity-8.0.1-py3-none-any.whl", hash = "sha256:f78f4ea81b0fabc06728c11dc2a8c01277bfc5181b321a4770471902e3eb844a"},
@@ -1214,23 +992,11 @@ tomli = [
 ttws = [
     {file = "ttws-0.8.3.tar.gz", hash = "sha256:9de3c1a8181026569e7ff060129c9ead244c34fe58a86d149fd0f2d926fbff6f"},
 ]
-types-setuptools = [
-    {file = "types-setuptools-65.3.0.tar.gz", hash = "sha256:c26779cbba3947823c260354adaab4e91ca8c18888aa2b740f503844b88f1813"},
-    {file = "types_setuptools-65.3.0-py3-none-any.whl", hash = "sha256:f69210049580939c70386252b776eb75ff4b6de488e7d766b9398669b7de68af"},
-]
 typing-extensions = [
     {file = "typing_extensions-4.3.0-py3-none-any.whl", hash = "sha256:25642c956049920a5aa49edcdd6ab1e06d7e5d467fc00e0506c44ac86fbfca02"},
     {file = "typing_extensions-4.3.0.tar.gz", hash = "sha256:e6d2677a32f47fc7eb2795db1dd15c1f34eff616bcaf2cfb5e997f854fa1c4a6"},
 ]
-urllib3 = [
-    {file = "urllib3-1.26.12-py2.py3-none-any.whl", hash = "sha256:b930dd878d5a8afb066a637fbb35144fe7901e3b209d1cd4f524bd0e9deee997"},
-    {file = "urllib3-1.26.12.tar.gz", hash = "sha256:3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"},
-]
 Werkzeug = [
     {file = "Werkzeug-2.2.2-py3-none-any.whl", hash = "sha256:f979ab81f58d7318e064e99c4506445d60135ac5cd2e177a2de0089bfd4c9bd5"},
     {file = "Werkzeug-2.2.2.tar.gz", hash = "sha256:7ea2d48322cc7c0f8b3a215ed73eabd7b5d75d0b50e31ab006286ccff9e00b8f"},
-]
-wheel = [
-    {file = "wheel-0.37.1-py2.py3-none-any.whl", hash = "sha256:4bdcd7d840138086126cd09254dc6195fb4fc6f01c050a1d7236f2630db1d22a"},
-    {file = "wheel-0.37.1.tar.gz", hash = "sha256:e9a504e793efbca1b8e0e9cb979a249cf4a0a7b5b8c9e8b65a5e39d49529c1c4"},
 ]

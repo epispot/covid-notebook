@@ -42,15 +42,17 @@ If you're using Anaconda, you can simply install the correct version of Python w
 conda install python==3.10.6
 ```
 
-Finally, install all of the base requirements before starting the app:
+Finally, install all of the base requirements before starting the app.
+This project uses Poetry for dependency management, but a `requirements.txt` file is listed for `pip`, though this won't install dev dependencies:
 
 ```sh
-pip install -r requirements.txt
+poetry install
+# pip install -r requirements.txt
 ```
 
 You're all set! :rocket:
 
-To run a sample instance for debugging, simply run `pythonn app.py`.
+To run a sample instance for debugging, simply run `python app.py`.
 Otherwise, use `gunicorn` to start a production-ready server instance:
 
 ```sh

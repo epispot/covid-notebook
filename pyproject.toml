@@ -1,0 +1,30 @@
+[tool.poetry]
+name = 'covid-notebook'
+version = '0.1.0'
+description = 'An interactive notebook for examining trends in COVID-19 cases'
+authors = ['q9i (quantum9innovation)']
+readme = 'README.md'
+packages = [{include = 'core'}]
+
+[tool.poetry.dependencies]
+python = '~3.10.6'
+numpy = '~1.23.1'
+pandas = '~1.4.3'
+plotly = '~5.9.0'
+epispot = '==3.0.0rc1'
+dash = '~2.6.1'
+gunicorn = '~20.1.0'
+
+[tool.poetry.dev-dependencies]
+lock-requirements = '~=0.1.1'
+isort = '~=5.10.1'
+pycodestyle = '~=2.9.1'
+pep8-naming = '~=0.13.1'
+flake8-noqa = '~=1.2.8'
+flake8 = '~=5.0.4'
+ttws = '~=0.8.3'
+autopep8 = '~=1.6.0'
+
+[build-system]
+requires = ['poetry-core']
+build-backend = 'poetry.core.masonry.api'

@@ -676,13 +676,15 @@ app.layout = html.Div(children=[
         'Viewing cumulative totals for all counties in the contiguous U.S.',
         html.Br(), 'Showing cases as percentage of total population.'
     ], id='info'),
-    dcc.Markdown(children=f'''
-        Data from *The New York Times*, based on reports from state and
-        local health agencies.
-        See also:
-        <https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html>
-        Last updated {core.get.last_update()}, at midnight UTC.
-    ''', id='footer'),
+    dcc.Markdown(
+        children='Data from *The New York Times*, based on reports from state '
+        + 'and local health agencies.  \n'
+        + 'See also: '
+        + '<https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases'
+        + '.html>.  \n'
+        + f'Last updated {core.get.last_update()}, at midnight UTC.',
+        id='footer'
+    ),
     # for callbacks w/ no output
     html.Div(id='void-forecast', style={ 'display': 'none' })
 ])

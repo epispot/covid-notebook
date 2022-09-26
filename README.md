@@ -38,17 +38,18 @@ conda install python==3.10.6
 ```
 
 Finally, install all of the base requirements before starting the app.
-This project uses Poetry for dependency management, but a `requirements.txt` file is listed for `pip`, though this won't install dev dependencies:
+This project uses Poetry for dependency management, but a `requirements.txt` file is listed for `pip`, though this won't install dev dependencies (use `dev-requirements.txt` after for that):
 
 ```sh
 poetry install
 # pip install -r requirements.txt
+# pip install -r dev-requirements.txt
 ```
 
 You're all set! :rocket:
 
-To run a sample instance for debugging, simply run `python app.py`.
-Otherwise, use `gunicorn` to start a production-ready server instance:
+To start a sample instance for debugging, simply run `python app.py`.
+Otherwise, use `gunicorn` to create a production-ready server instance:
 
 ```sh
 gunicron app:server

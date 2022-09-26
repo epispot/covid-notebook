@@ -5,9 +5,6 @@ An interactive notebook for examining trends in confirmed COVID-19 cases
 
 ---
 
-<img src='./imgs/nyc-cases.png' alt='Case data in New York' width='40%' align='left'/>
-<img src='./imgs/sf-fatality-rate.png' alt='Inferred fatality rates in counties around the San Francisco Bay Area' width='40%'/>
-
 *Left: New York City, NY; Right: San Francisco, CA*
 
 ## What is it?

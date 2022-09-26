@@ -1,11 +1,9 @@
 
-# covid-notebook
+![cover image for the covid notebook project](./imgs/cover.png)
 
 An interactive notebook for examining trends in confirmed COVID-19 cases
 
 ---
-
-*Left: New York City, NY; Right: San Francisco, CA*
 
 ## What is it?
 

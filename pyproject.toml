@@ -22,7 +22,7 @@ pep8-naming = '~=0.13.1'
 flake8-noqa = '~=1.2.8'
 flake8 = '~=5.0.4'
 ttws = '~=0.8.3'
-autopep8 = '~=1.6.0'
+autopep8 = '~=1.7.0'
 
 [build-system]
 requires = ['poetry-core']

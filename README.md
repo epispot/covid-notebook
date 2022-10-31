@@ -13,7 +13,7 @@ Clicking on a county triggers historical data to load, at which point forecasts 
 
 ## Is it ready yet?
 
-Almost; the notebook needs to undergo a few changes before the production release, but as of right now no known bugs have been detected.
+Yes! The notebook is currently not hosted on a permanent web site, though there are plans to do this; however, all the code is production-ready and can be run from the repository itself if you have Python installed.
 If you encounter an issue or have any suggestions, let us know by submitting an issue to this repository.
 
 ## How do I run it?

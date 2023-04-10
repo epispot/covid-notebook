@@ -17,13 +17,13 @@ def data(source='cumulative'):
 
     # fetch data
     if last_update != get.last_update():  # cached data is outdated
-
         cumulative, rolling = get.data(last_update)
         match source:
             case 'cumulative': return cumulative
             case 'rolling': return rolling
 
     else:  # cached data is up-to-date
+        last_update = '2023-03-23'  # use the latest reported data
         full = pd.read_csv(
             f'artifacts/{source}.csv',
             dtype={'fips': str}
